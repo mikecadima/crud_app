@@ -45,24 +45,31 @@
                 })
             })
             document.querySelectorAll(".delete").forEach(button=>{
-                button.addEventListener('click', async(evt)=>{
+                button.addEventListener('click', async (evt)=>{
+                    let parent = document.getElementById(`${evt.target.parentNode.id}`)
+                    parent.remove()
                     let result = await request(`/delete-task/${evt.target.parentNode.id}`, 'DELETE')
-                    console.log(result)
                 })
             })
             document.querySelectorAll(".change_but").forEach(button=>{
-                button.addEventListener('click', async(evt)=>{
-                    let id = evt.target.parentNode.id
-                    let title = document.querySelector(`#changeT_${id}`).value;
-                    let result = await request(` /edit-task/${id}/${title}/change_title`, 'PATCH',
-                    {title:title, id:id})
-                    console.log(result) 
+                button.addEventListener('click', async (evt)=>{
+                    let value = document.getElementById('newtitle').value
+                    let result = await request(`/edit-task/${evt.target.parentNode.id}/${value}`, 'PATCH')
                 })
             })
+            
+            // document.querySelectorAll(".change_but").forEach(button=>{
+            //     button.addEventListener('click', async(evt)=>{
+            //         let id = evt.target.parentNode.id
+            //         let title = document.querySelector(`#changeT_${id}`).value;
+            //         let result = await request(` /edit-task/${id}/${title}/change_title`, 'PATCH',
+            //         {title:title, id:id})
+            //         console.log(result) 
+            //     })
+            // })
         }
         start();
 
-        // DELETE
         
     </script>
 </body>
